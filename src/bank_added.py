@@ -15,7 +15,7 @@ M(1, "Who is responsible for managing the database system?",
   "Chapter 1: the DBA authorizes access, coordinates and monitors use of the database.")
 M(1, "Which of the following best describes end users?",
   ["They design the database schema", "They manage security policies", "They use the database for queries and update", "None of the above"], 2, ["M26"], "slides",
-  "Chapter 1, slide 26: 'End-users: they use the data for queries, reports and some of them actually update the database content.'")
+  "The slides: 'End-users: they use the data for queries, reports and some of them actually update the database content.'")
 M(2, "The database schema refers to:",
   ["The actual data stored at a given time", "Backup copies of the database", "The structure and definition of database", "None of the above"], 2, ["M26"], "slides",
   "The actual data at a given time is the database state (instance), not the schema.")
@@ -24,7 +24,7 @@ R(2, "Write the difference between database schema and database state.",
   ["M26"], "slides", "Chapter 2, 'Schemas, Instances, and Database State' slides.")
 R(2, "Define the term data independence and explain the two levels of data independence in brief.",
   "<b>Data independence:</b> the capacity to change the schema at one level of the three-schema architecture without having to change the schema at the next higher level.<br><b>Logical data independence:</b> the capacity to change the conceptual schema without having to change the external schemas and their application programs.<br><b>Physical data independence:</b> the capacity to change the internal schema without having to change the conceptual schema.",
-  ["M26"], "slides", "Chapter 2, slide 15.")
+  ["M26"], "slides", "")
 D(2, "Draw the three-schema architecture and show how its levels are connected to the stored database.", ["M26"],
   "Check your drawing against the Chapter 2 slides on the three-schema architecture.")
 D(3, "Draw the ER diagram for this university database:<ul><li>A teacher has Teacher code (unique), Teacher's name consisting of (First name, Middle name and Family name), Teacher's address, rank, department.</li><li>The teacher teaches courses. Each course has course name, course number (unique), course credit hours.</li><li>Students register courses. Each student has student number (unique), name, major, date of birth, email (may have one or more emails).</li><li>Courses have sections. Each section has a number (unique) and location.</li><li>Dependencies:<ul><li>A teacher should teach at most 4 courses, and each course could be taught by two teachers.</li><li>A student may register many courses, and each course can be registered by many students.</li><li>The same course may have more than one section.</li></ul></li></ul>", ["M26"])

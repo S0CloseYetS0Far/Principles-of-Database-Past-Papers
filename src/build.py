@@ -37,17 +37,27 @@ SKIPPED = [
  "Questions where the photo is cut off or the answer is genuinely ambiguous (e.g. the podcast 'Entity vs Instance' version in Quiz 1 2nd 2025, the 'NOT a type of data model' question in Quiz 1 Summer 2024, the Magazine normalization in Final 1st 2024).",
  "The Arabic recollection sheet on page 3 of Final_1st_2023.pdf.",
 ]
-CHAPTERS = {
- 1: ("Databases and Database Users", "CS1370_Chapter1.pdf"),
- 2: ("Database System Concepts and Architecture", "CS1370_Chapter2.pdf"),
- 3: ("Data Modeling Using the ER Model", "CS1370_Chapter3.pdf"),
- 4: ("The Enhanced ER (EER) Model", "CS1370_Chapter4.pdf"),
- 5: ("The Relational Model and Constraints", "CS1370_Chapter5.pdf"),
- 6: ("ER/EER-to-Relational Mapping", "CS1370_Chapter6.pdf"),
- 7: ("Relational Algebra and Calculus", "CS1370_Chapter7.pdf"),
- 8: ("SQL: Definition, Constraints, Queries, Views", "CS370_Chapter8_DDL.pdf + CS370_Chapter8_DML_part2.pdf"),
- 9: ("Functional Dependencies and Normalization", "CS1370_Chapter9.pdf"),
+CHAPTERS = {  # title, deck(s), slide count
+ 1: ("Databases and Database Users", "CS1370_Chapter1.pdf", 32),
+ 2: ("Database System Concepts and Architecture", "CS1370_Chapter2.pdf", 23),
+ 3: ("Data Modeling Using the ER Model", "CS1370_Chapter3.pdf", 60),
+ 4: ("The Enhanced ER (EER) Model", "CS1370_Chapter4.pdf", 36),
+ 5: ("The Relational Model and Constraints", "CS1370_Chapter5.pdf", 35),
+ 6: ("ER/EER-to-Relational Mapping", "CS1370_Chapter6.pdf", 29),
+ 7: ("Relational Algebra and Calculus", "CS1370_Chapter7.pdf", 69),
+ 8: ("SQL: Definition, Constraints, Queries, Views", "CS370_Chapter8_DDL.pdf + CS370_Chapter8_DML_part2.pdf", 70),
+ 9: ("Functional Dependencies and Normalization", "CS1370_Chapter9.pdf", 49),
 }
+DECKS = {"CS370_Chapter8_DDL.pdf": 8, "CS370_Chapter8_DML_part2.pdf": 8,
+         **{f"CS1370_Chapter{n}.pdf": n for n in (1, 2, 3, 4, 5, 6, 7, 9)}}
+# When each exam was given (year + .2 spring / .5 summer / .8 fall), used to sort newest first.
+DATES = {"M26": 2026.2, "Q26_2": 2026.2, "Q25_1": 2025.8,
+         "F25_3": 2025.5, "M25_3": 2025.5, "Q25_3": 2025.5, "Q25_3b": 2025.5,
+         "F25_2": 2025.2, "M25_2": 2025.2, "Q25_2": 2025.2,
+         "F24_1": 2024.8, "M24_1": 2024.8, "Q24_1": 2024.8, "Q24_1b": 2024.8, "Q24_S": 2024.5, "M24_2": 2024.2,
+         "F23_1": 2023.8, "M23_1": 2023.8, "M23S": 2023.5, "Q23_2": 2023.2, "Q22": 2022.8, "Q21": 2021.8, "M21_2": 2021.8}
+SLIDES = json.load(open(os.path.join(HERE, "slides.json")))
+from slidemap import qkey
 
 # embed images as compressed JPEG data URIs
 imgs = {}
@@ -60,15 +70,40 @@ for q in Q:
             pix = pymupdf.Pixmap(pix, 1000, int(pix.height * 1000 / pix.width), None)
         imgs[k] = "data:image/jpeg;base64," + base64.b64encode(pix.tobytes("jpg", jpg_quality=82)).decode()
 
+out = []
 for i, q in enumerate(Q):
-    q["id"] = f"c{q['ch']}-{i}"
-    for s in q["s"]: assert s in SOURCES, s
+    for s in q["s"]: assert s in SOURCES and s in DATES, s
+    r = dict(id=qkey(q), ch=q["ch"], q=q["q"], e=q.get("e", ""), p=q["p"], sl=SLIDES[qkey(q)],
+             from_=sorted(q["s"], key=lambda s: -DATES[s]), _i=i)
+    if q["t"] == "mcq":
+        r.update(t="tf" if q["o"] == ["True", "False"] else "mcq", o=q["o"], a=q["a"])
+    elif q["t"] == "reveal":
+        r.update(t="short", a=q["ans"])
+    else:
+        r.update(t="draw")
+    if q.get("img"): r["img"] = q["img"]
+    if q.get("ctx"): r["ctx"] = q["ctx"]
+    r["_d"] = DATES[r["from_"][0]]
+    out.append(r)
+# chapter order, then newest exam first; ties keep the bank's original order
+out.sort(key=lambda r: (r["ch"], -r["_d"], r["_i"]))
+for r in out:
+    r["from"] = r.pop("from_"); del r["_d"], r["_i"]
+assert len({r["id"] for r in out}) == len(out), "duplicate question ids"
 
-data = dict(q=Q, src={k: dict(n=v[0], f=v[1], h=v[2]) for k, v in SOURCES.items()},
-            ch={k: dict(n=v[0], f=v[1]) for k, v in CHAPTERS.items()}, img=imgs, skipped=SKIPPED)
+data = dict(questions=out,
+            sources={k: dict(label=v[0], file=v[1].split("Exams/", 1)[1], how=v[2], date=DATES[k]) for k, v in SOURCES.items()},
+            chapters={k: dict(title=v[0], deck=v[1], slides=v[2]) for k, v in CHAPTERS.items()},
+            decks=DECKS, img=imgs, skipped=SKIPPED)
 tpl = open(os.path.join(HERE, "page.html"), encoding="utf-8").read()
 page = tpl.replace("/*__DATA__*/null", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
-standalone = "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n" + page + "\n</html>"
+standalone = ("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
+              "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n"
+              "<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>\n"
+              "</head>\n<body>\n" + page + "\n</body>\n</html>\n")
 open(os.path.join(HERE, "..", "index.html"), "w", encoding="utf-8").write(standalone)
+if len(sys.argv) > 1:  # optional: page without the HTML wrapper (for the hosted version)
+    open(sys.argv[1], "w", encoding="utf-8").write(page)
 from collections import Counter
-print(len(Q), "questions", dict(sorted(Counter(q["ch"] for q in Q).items())), "size", len(page)//1024, "KB")
+print(len(out), "questions", dict(sorted(Counter(r["ch"] for r in out).items())),
+      dict(Counter(r["t"] for r in out)), "size", len(page) // 1024, "KB")

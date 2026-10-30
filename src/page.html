@@ -1,401 +1,675 @@
-<title>CS370 Exam Bank</title>
+<title>CS370 Question Bank</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>
-/* Layout: exam-paper workspace — chapter tabs on top, question sheet on the left, a printed-style answer grid on the right; blue pen = your answer, red pen = marking. */
+/* Layout: one centered study column (~46rem). Home = chapter grid; practice = one question sheet + progress strip + nav bar. */
 :root {
-  --bg: #eef1ed;
-  --paper: #fbfcfa;
-  --ink: #1a2029;
-  --muted: #5a6370;
-  --line: #d3d9d2;
-  --pen: #2c43b0;
-  --pen-soft: #e3e7fb;
-  --ok: #1d7a4a;
-  --ok-soft: #e0f2e8;
-  --bad: #c2352c;
-  --bad-soft: #fbe4e2;
-  --warn: #946200;
-  --chip: #e4e8e3;
-  --shadow: 0 1px 2px rgba(20,30,20,.06), 0 6px 24px rgba(20,30,20,.06);
+  --paper: #f2f4f8;
+  --sheet: #ffffff;
+  --ink: #131a2b;
+  --muted: #55627a;
+  --rule: #d8dee9;
+  --accent: #0b6e86;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2f1f5;
+  --mark: #ffe680;
+  --mark-ink: #2d2600;
+  --ok: #157a3b;
+  --ok-soft: #e4f5ea;
+  --bad: #b3261e;
+  --bad-soft: #fcebea;
+  --frame: #e6eaf1;
+  --shadow: 0 1px 2px rgba(19, 26, 43, .06), 0 6px 24px rgba(19, 26, 43, .06);
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
-  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #11151b; --paper: #181d25; --ink: #e4e8ee; --muted: #9aa3b1; --line: #2b323d;
-  --pen: #93a5ff; --pen-soft: #242c4d; --ok: #5dd199; --ok-soft: #173427; --bad: #ff7d72; --bad-soft: #3d1f1d;
-  --warn: #e0b04a; --chip: #232a34; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 24px rgba(0,0,0,.25); color-scheme: dark; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e131c; --sheet: #151c28; --ink: #e5eaf3; --muted: #9aa6bc; --rule: #283245;
+    --accent: #5cc4d9; --accent-ink: #06222a; --accent-soft: #12303a;
+    --mark: #5a4c0e; --mark-ink: #fff3c4;
+    --ok: #58d17f; --ok-soft: #10291b; --bad: #ff8a80; --bad-soft: #2f1615; --frame: #222b3b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 24px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
 :root[data-theme="dark"] {
-  --bg: #11151b; --paper: #181d25; --ink: #e4e8ee; --muted: #9aa3b1; --line: #2b323d;
-  --pen: #93a5ff; --pen-soft: #242c4d; --ok: #5dd199; --ok-soft: #173427; --bad: #ff7d72; --bad-soft: #3d1f1d;
-  --warn: #e0b04a; --chip: #232a34; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 24px rgba(0,0,0,.25); color-scheme: dark; }
+  --paper: #0e131c; --sheet: #151c28; --ink: #e5eaf3; --muted: #9aa6bc; --rule: #283245;
+  --accent: #5cc4d9; --accent-ink: #06222a; --accent-soft: #12303a;
+  --mark: #5a4c0e; --mark-ink: #fff3c4;
+  --ok: #58d17f; --ok-soft: #10291b; --bad: #ff8a80; --bad-soft: #2f1615; --frame: #222b3b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 24px rgba(0, 0, 0, .25);
+  color-scheme: dark;
+}
 
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--f-body); margin: 0; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; }
-h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 1rem/1.6 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 5rem;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 46rem; margin: 0 auto; }
 button { font: inherit; color: inherit; cursor: pointer; }
-button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--pen); outline-offset: 2px; }
-.eyebrow { font: 600 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; letter-spacing: -0.01em; margin: 0; }
+.label { font: 500 .72rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
-header.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; margin-bottom: 22px; }
-header.top h1 { font-size: clamp(34px, 6vw, 52px); font-weight: 700; letter-spacing: -.02em; margin-top: 8px; }
-header.top p { margin: 8px 0 0; color: var(--muted); max-width: 60ch; }
-.score { display: flex; gap: 22px; font-variant-numeric: tabular-nums; }
-.score div { display: grid; gap: 2px; }
-.score b { font: 700 26px/1 var(--f-display); }
-.score span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-.score .g b { color: var(--ok); } .score .r b { color: var(--bad); }
+/* ---------- top bar ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: .7rem max(16px, env(safe-area-inset-left, 0px));
+}
+.top .wrap { display: flex; align-items: center; gap: .75rem; }
+.brand { display: flex; align-items: baseline; gap: .55rem; min-width: 0; background: none; border: 0; padding: 0; }
+.brand b { font: 700 1.15rem/1 var(--f-display); }
+.brand span { font: 500 .75rem/1 var(--f-mono); color: var(--muted); white-space: nowrap; }
+.top .spacer { flex: 1; }
+.iconbtn {
+  border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px;
+  padding: .35rem .75rem; font-size: .85rem; display: inline-flex; align-items: center; gap: .4rem;
+}
+.iconbtn:hover { border-color: var(--accent); }
 
-nav.chapters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-.chap { border: 1px solid var(--line); background: var(--paper); border-radius: 10px; padding: 8px 12px; display: grid; gap: 2px; text-align: left; min-width: 0; }
-.chap .n { font: 600 14px/1.1 var(--f-display); }
-.chap .t { font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.chap .bar { height: 3px; border-radius: 2px; background: var(--chip); overflow: hidden; margin-top: 4px; }
-.chap .bar i { display: block; height: 100%; background: var(--ok); }
-.chap[aria-pressed="true"] { border-color: var(--pen); background: var(--pen-soft); }
-.chap[aria-pressed="true"] .n { color: var(--pen); }
-.chtitle { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; margin: 6px 0 16px; }
-.chtitle h2 { font-size: 24px; font-weight: 600; }
-.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.tools select, .btn { border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 7px 12px; font-size: 14px; color: var(--ink); }
-.btn:hover { border-color: var(--muted); }
-.btn.primary { background: var(--pen); border-color: var(--pen); color: var(--paper); font-weight: 600; }
-.btn[disabled] { opacity: .4; cursor: default; }
+/* ---------- home ---------- */
+.hero { padding-block: 2.2rem 1.4rem; display: grid; gap: .8rem; }
+.hero h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.08; }
+.hero p { margin: 0; color: var(--muted); max-width: 38rem; }
+.stats { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; font: 500 .85rem/1.4 var(--f-mono); color: var(--muted); }
+.stats b { color: var(--ink); font-weight: 600; }
 
-.grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
-@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.controls {
+  display: grid; gap: .9rem; padding: 1rem 1.1rem; margin-bottom: 1.4rem;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 14px;
+}
+.ctl-row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem; }
+.ctl-row > .label { width: 7.2rem; flex: none; }
+.chip {
+  border: 1px solid var(--rule); background: transparent; border-radius: 999px;
+  padding: .3rem .8rem; font-size: .88rem;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.switch { display: inline-flex; align-items: center; gap: .55rem; font-size: .92rem; background: none; border: 0; padding: .2rem 0; }
+.switch i {
+  width: 2.3rem; height: 1.3rem; border-radius: 999px; background: var(--frame); position: relative; flex: none;
+  transition: background .15s;
+}
+.switch i::after {
+  content: ""; position: absolute; top: .15rem; left: .15rem; width: 1rem; height: 1rem; border-radius: 50%;
+  background: var(--sheet); box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .15s;
+}
+.switch[aria-checked="true"] i { background: var(--accent); }
+.switch[aria-checked="true"] i::after { transform: translateX(1rem); }
 
-.sheet { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: clamp(18px, 3vw, 30px); min-width: 0; }
-.qmeta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-bottom: 14px; font-size: 13px; color: var(--muted); }
-.qmeta .num { font: 700 13px/1 var(--f-mono); color: var(--ink); }
-.pill { font: 600 11px/1 var(--f-mono); letter-spacing: .05em; text-transform: uppercase; padding: 5px 8px; border-radius: 5px; background: var(--chip); color: var(--muted); }
-.figure { margin: 0 0 16px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
-.figure img { display: block; width: 100%; height: auto; }
-.figure figcaption { font-size: 12px; color: #555; padding: 6px 10px; border-top: 1px solid #e5e5e5; background: #fafafa; }
-.ctx { margin-bottom: 16px; overflow-x: auto; }
-.ctx pre, .answer pre { font: 13px/1.5 var(--f-mono); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0; overflow-x: auto; white-space: pre; }
-.tables { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
-.tables table { border-collapse: collapse; font: 12.5px/1.35 var(--f-mono); font-variant-numeric: tabular-nums; }
-.tables caption { text-align: left; font-weight: 600; padding-bottom: 4px; color: var(--muted); letter-spacing: .04em; }
-.tables th, .tables td { border: 1px solid var(--line); padding: 3px 7px; text-align: left; white-space: nowrap; }
-.tables th { background: var(--chip); font-weight: 600; }
-.tables .note { flex-basis: 100%; margin: 0; font-size: 12.5px; color: var(--muted); }
-.qtext { font-size: 18.5px; line-height: 1.5; font-weight: 500; margin: 0 0 18px; max-width: 70ch; }
-.opts { display: grid; gap: 8px; }
-.opt { display: grid; grid-template-columns: 30px minmax(0,1fr) auto; gap: 10px; align-items: center; text-align: left; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 10px 12px; transition: border-color .12s, background .12s; }
-.opt:hover:not([disabled]) { border-color: var(--pen); background: var(--pen-soft); }
-.opt .l { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font: 600 13px/1 var(--f-mono); color: var(--muted); }
-.opt .mk { font: 600 12px/1 var(--f-mono); letter-spacing: .04em; }
+.group-title { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 1.6rem 0 .7rem; }
+.group-title h2 { font-size: 1.15rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr)); gap: .7rem; }
+.ch {
+  text-align: left; display: grid; grid-template-columns: auto 1fr; gap: .2rem .85rem; align-items: start;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: .9rem 1rem;
+  transition: border-color .15s, transform .15s;
+}
+.ch:hover { border-color: var(--accent); transform: translateY(-1px); }
+.ch .num {
+  grid-row: span 3; font: 700 1.9rem/1 var(--f-display); color: var(--accent); min-width: 2.2ch;
+  font-variant-numeric: tabular-nums;
+}
+.ch .t { font-weight: 600; line-height: 1.3; }
+.ch .meta { font: 400 .78rem/1.4 var(--f-mono); color: var(--muted); }
+.ch .bar { height: 4px; border-radius: 99px; background: var(--frame); overflow: hidden; margin-top: .35rem; }
+.ch .bar span { display: block; height: 100%; background: var(--ok); }
+.ch.all { grid-column: 1 / -1; background: var(--accent-soft); border-color: transparent; }
+.ch.all .num { color: var(--ink); }
+
+.note { font-size: .88rem; color: var(--muted); margin-top: 2rem; }
+.note b { color: var(--ink); font-weight: 600; }
+
+.sources { margin-top: 2.6rem; padding-top: 1.4rem; border-top: 2px solid var(--ink); display: grid; gap: .9rem; }
+.sources h2 { font-size: 1.3rem; }
+.sources p { margin: 0; color: var(--muted); font-size: .92rem; }
+.srclist { margin: 0; padding: 0; list-style: none; display: grid; border: 1px solid var(--rule); border-radius: 12px; background: var(--sheet); overflow: hidden; }
+.srclist li { display: grid; grid-template-columns: 1fr auto; gap: .1rem 1rem; padding: .6rem .9rem; border-bottom: 1px solid var(--rule); min-width: 0; }
+.srclist li:last-child { border-bottom: 0; }
+.srclist .file, .srclist .how { grid-column: 1; font: 400 .78rem/1.4 var(--f-mono); color: var(--muted); overflow-wrap: anywhere; }
+.srclist .how { font-family: var(--f-body); font-size: .82rem; }
+.srclist .n { grid-row: 1 / span 3; grid-column: 2; font: 500 .82rem/1 var(--f-mono); color: var(--muted); align-self: center; font-variant-numeric: tabular-nums; }
+.provkey { margin: 0; padding: 0; list-style: none; display: grid; gap: .45rem; font-size: .9rem; }
+.skip { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .88rem; display: grid; gap: .3rem; }
+
+/* ---------- practice ---------- */
+.qhead { display: grid; gap: .6rem; padding-block: 1.3rem .9rem; }
+.qhead .row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; }
+.qhead h2 { font-size: 1.05rem; font-family: var(--f-body); font-weight: 600; letter-spacing: 0; }
+.qhead .row .spacer { flex: 1; }
+.pos { font: 500 .85rem/1 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.tag {
+  font: 500 .72rem/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid var(--rule); border-radius: 6px; padding: .3rem .45rem; color: var(--muted);
+}
+.tag.review { border-color: var(--bad); color: var(--bad); }
+
+.frames { display: flex; flex-wrap: wrap; gap: 3px; }
+.frames button {
+  width: 14px; height: 14px; padding: 0; border: 0; border-radius: 3px; background: var(--frame);
+}
+.frames button.seen { background: var(--rule); }
+.frames button.ok { background: var(--ok); }
+.frames button.bad { background: var(--bad); }
+.frames button.cur { outline: 2px solid var(--ink); outline-offset: 1px; }
+.frames-wrap { display: grid; gap: .35rem; }
+.legend { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font: 400 .72rem/1.3 var(--f-mono); color: var(--muted); }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: .3rem; vertical-align: -1px; }
+
+.sheet {
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 16px; box-shadow: var(--shadow);
+  padding: clamp(1.1rem, 3vw, 1.8rem); display: grid; gap: 1.1rem; min-width: 0;
+}
+.qtext { font-size: 1.06rem; line-height: 1.65; min-width: 0; overflow-wrap: anywhere; }
+.qtext ul { margin: .5rem 0 0; padding-left: 1.3rem; display: grid; gap: .3rem; font-size: 1rem; }
+.qtext ul ul { margin-top: .25rem; }
+.qtext pre, .sol pre, .ctx pre {
+  font: 400 .86rem/1.5 var(--f-mono); background: var(--paper); border: 1px solid var(--rule);
+  border-radius: 8px; padding: .7rem .85rem; overflow-x: auto; margin: .6rem 0; white-space: pre;
+}
+.ctx { min-width: 0; overflow-x: auto; }
+.ctx .tables { display: flex; flex-wrap: wrap; gap: .8rem; align-items: flex-start; }
+.ctx table { border-collapse: collapse; font: 400 .8rem/1.4 var(--f-mono); font-variant-numeric: tabular-nums; }
+.ctx caption { text-align: left; font: 500 .72rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: .3rem; }
+.ctx th, .ctx td { border: 1px solid var(--rule); padding: .25rem .5rem; text-align: left; white-space: nowrap; }
+.ctx th { background: var(--paper); font-weight: 500; }
+.ctx .note { flex-basis: 100%; margin: 0; font-size: .8rem; }
+.fig { margin: 0; display: grid; gap: .35rem; }
+.fig img { display: block; max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--rule); background: #fff; }
+.fig figcaption { font-size: .78rem; color: var(--muted); }
+
+.opts { display: grid; gap: .5rem; }
+.opts.tf { grid-template-columns: 1fr 1fr; }
+.opt {
+  display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: .7rem; text-align: left;
+  border: 1.5px solid var(--rule); border-radius: 11px; background: var(--sheet); padding: .6rem .8rem;
+  transition: border-color .12s, background .12s;
+}
+.opt:hover:not([disabled]) { border-color: var(--accent); background: var(--accent-soft); }
+.opt .key {
+  width: 2rem; height: 2rem; border-radius: 8px; display: grid; place-items: center;
+  font: 600 .9rem/1 var(--f-mono); background: var(--paper); border: 1px solid var(--rule);
+}
+.opt .txt { min-width: 0; overflow-wrap: anywhere; }
+.opt .res { font: 600 .78rem/1 var(--f-mono); letter-spacing: .04em; }
 .opt[disabled] { cursor: default; }
 .opt.right { border-color: var(--ok); background: var(--ok-soft); }
-.opt.right .l { border-color: var(--ok); background: var(--ok); color: var(--paper); }
-.opt.right .mk { color: var(--ok); }
+.opt.right .key { background: var(--ok); color: var(--sheet); border-color: var(--ok); }
+.opt.right .res { color: var(--ok); }
 .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
-.opt.wrong .l { border-color: var(--bad); color: var(--bad); }
-.opt.wrong .txt { text-decoration: line-through; text-decoration-color: var(--bad); }
-.opt.wrong .mk { color: var(--bad); }
-.opt.picked .l { box-shadow: 0 0 0 3px var(--pen-soft); }
-.opts.tf { grid-template-columns: 1fr 1fr; }
+.opt.wrong .key { background: var(--bad); color: var(--sheet); border-color: var(--bad); }
+.opt.wrong .res { color: var(--bad); }
 
-.answer { margin-top: 16px; border: 1px dashed var(--line); border-radius: 10px; padding: 14px 16px; background: var(--bg); }
-.answer .model { font-size: 15px; line-height: 1.6; overflow-x: auto; }
-.selfmark { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.feedback { margin-top: 16px; display: grid; gap: 10px; }
-.verdict { font: 700 18px/1.2 var(--f-display); }
-.verdict.ok { color: var(--ok); } .verdict.no { color: var(--bad); }
-.why { margin: 0; color: var(--ink); max-width: 70ch; }
-.srcline { display: grid; gap: 4px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
-.srcline b { color: var(--ink); font-weight: 600; }
-.prov { display: inline-block; font: 600 11px/1 var(--f-mono); letter-spacing: .04em; padding: 4px 7px; border-radius: 5px; margin-right: 6px; vertical-align: 1px; }
+.reveal { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.btn {
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
+  border-radius: 10px; padding: .55rem 1.05rem; font-weight: 600; font-size: .95rem;
+}
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.accent { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn[disabled] { opacity: .4; cursor: default; }
+
+.verdict { display: flex; align-items: center; gap: .6rem; font-weight: 600; }
+.verdict.ok { color: var(--ok); }
+.verdict.bad { color: var(--bad); }
+
+.sol { border-top: 1px dashed var(--rule); padding-top: 1.1rem; display: grid; gap: 1rem; min-width: 0; }
+.sol h3 { font: 500 .72rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+.answer {
+  background: var(--mark); color: var(--mark-ink); border-radius: 10px; padding: .75rem .95rem;
+  overflow-wrap: anywhere; min-width: 0;
+}
+.answer pre { background: rgba(255,255,255,.55); }
+:root[data-theme="dark"] .answer pre { background: rgba(0,0,0,.25); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .answer pre { background: rgba(0,0,0,.25); } }
+.answer.none { background: var(--paper); color: var(--ink); border: 1px dashed var(--rule); }
+.expl { overflow-wrap: anywhere; min-width: 0; }
+.selfgrade { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.selfgrade .label { margin-right: .3rem; }
+
+.where { display: grid; gap: .7rem; background: var(--paper); border-radius: 12px; padding: .9rem 1rem; }
+.where .item { display: grid; grid-template-columns: 6.5rem 1fr; gap: .2rem .8rem; align-items: baseline; }
+.where .item > .label { padding-top: .15rem; }
+.where ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .45rem; }
+.where li { min-width: 0; overflow-wrap: anywhere; }
+.where .file { display: block; font: 400 .78rem/1.4 var(--f-mono); color: var(--muted); }
+.slideref { font-weight: 600; }
+.slideref mark { background: var(--mark); color: var(--mark-ink); padding: .05rem .35rem; border-radius: 4px; font-family: var(--f-mono); font-weight: 500; }
+.prov { font: 500 .72rem/1 var(--f-mono); letter-spacing: .05em; text-transform: uppercase; padding: .25rem .45rem; border-radius: 5px; margin-right: .4rem; background: var(--frame); color: var(--muted); white-space: nowrap; }
 .prov.key, .prov.graded { background: var(--ok-soft); color: var(--ok); }
-.prov.marked { background: var(--pen-soft); color: var(--pen); }
-.prov.slides, .prov.worked { background: var(--chip); color: var(--warn); }
-.prov.drawing { background: var(--chip); color: var(--muted); }
-.qtext ul { margin: 8px 0 0; padding-left: 22px; display: grid; gap: 4px; font-size: 16.5px; font-weight: 400; }
-.qtext ul ul { margin-top: 4px; }
-.nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
-.kbd { font-size: 12px; color: var(--muted); align-self: center; }
-.empty { text-align: center; padding: 40px 10px; color: var(--muted); }
+.prov.marked { background: var(--accent-soft); color: var(--accent); }
 
-aside.card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
-@media (max-width: 860px) { aside.card { position: static; } }
-aside h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-aside .sub { font-size: 12.5px; color: var(--muted); margin: 0 0 12px; }
-.answergrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); border-left: 1px solid var(--line); border-top: 1px solid var(--line); max-height: 420px; overflow-y: auto; }
-.cell { border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; padding: 3px 0 5px; display: grid; justify-items: center; gap: 1px; min-height: 44px; }
-.cell .i { font: 500 10px/1 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
-.cell .a { font: 600 17px/1.1 "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive; color: var(--pen); min-height: 19px; }
-.cell.ok { background: var(--ok-soft); } .cell.no { background: var(--bad-soft); }
-.cell.no .a { color: var(--bad); }
-.cell.cur { outline: 2px solid var(--pen); outline-offset: -2px; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 12px; font-size: 12px; color: var(--muted); }
-.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+/* bottom nav */
+.navbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+  background: var(--sheet); border-top: 1px solid var(--rule);
+  padding: .6rem max(16px, env(safe-area-inset-right, 0px)) calc(.6rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.navbar .wrap { display: flex; align-items: center; gap: .6rem; }
+.navbar .mid { flex: 1; text-align: center; font: 500 .8rem/1.3 var(--f-mono); color: var(--muted); min-width: 0; }
+.kbd { font: 500 .72rem/1 var(--f-mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: .1rem .3rem; }
 
-section.sources { margin-top: 56px; border-top: 2px solid var(--ink); padding-top: 22px; }
-section.sources h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-section.sources > p { color: var(--muted); max-width: 70ch; margin: 0 0 18px; }
-.provkey { display: grid; gap: 8px; margin: 0 0 24px; padding: 0; list-style: none; max-width: 80ch; font-size: 14px; }
-.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
-table.src { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 640px; }
-table.src th, table.src td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-table.src th { font: 600 11px/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
-table.src td.f { font: 12px/1.4 var(--f-mono); color: var(--muted); word-break: break-all; }
-table.src td.c { font-variant-numeric: tabular-nums; text-align: right; }
-table.src tr:last-child td { border-bottom: 0; }
-h3.sub2 { font-size: 18px; margin: 28px 0 10px; }
-ul.skip { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; max-width: 80ch; display: grid; gap: 6px; }
+/* done */
+.done { padding-block: 2rem; display: grid; gap: 1.2rem; }
+.score { font: 700 clamp(2.6rem, 9vw, 4rem)/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.missed { display: grid; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.missed button { text-align: left; width: 100%; border: 1px solid var(--rule); background: var(--sheet); border-radius: 10px; padding: .55rem .8rem; display: grid; gap: .15rem; min-width: 0; }
+.missed button:hover { border-color: var(--accent); }
+.missed .qline { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+@media (max-width: 560px) {
+  .ctl-row > .label { width: 100%; }
+  .where .item { grid-template-columns: 1fr; }
+  .brand span { display: none; }
+  .hide-sm { display: none; }
+  .opts.tf { grid-template-columns: 1fr; }
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
-<div class="wrap">
-  <header class="top">
-    <div>
-      <div class="eyebrow">CS370 · Introduction to Database</div>
-      <h1>Exam Bank</h1>
-      <p id="lede">Past midterm, final and quiz questions, sorted by chapter. Pick an answer to check it; every question says which paper it came from and where its answer came from.</p>
-    </div>
-    <div class="score" aria-live="polite">
-      <div><b id="sDone">0</b><span>Answered</span></div>
-      <div class="g"><b id="sOk">0</b><span>Correct</span></div>
-      <div class="r"><b id="sNo">0</b><span>Missed</span></div>
-    </div>
-  </header>
-
-  <nav class="chapters" id="chapters" aria-label="Chapters"></nav>
-
-  <div class="chtitle">
-    <h2 id="chName">All chapters</h2>
-    <div class="tools">
-      <label class="eyebrow" for="filter">Show</label>
-      <select id="filter">
-        <option value="all">All questions</option>
-        <option value="todo">Not answered yet</option>
-        <option value="missed">Ones I missed</option>
-        <option value="mcq">Multiple choice &amp; T/F only</option>
-        <option value="reveal">Written answers only</option>
-        <option value="draw">Drawing questions only</option>
-      </select>
-      <button class="btn" id="shuffle" type="button" aria-pressed="false">Shuffle</button>
-      <button class="btn" id="reset" type="button">Clear answers</button>
-    </div>
+<header class="top">
+  <div class="wrap">
+    <button class="brand" id="homeBtn" type="button" aria-label="Back to chapters"><b>CS370 Question Bank</b><span>Introduction to Database</span></button>
+    <div class="spacer"></div>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Switch theme">Theme: <span id="themeLbl">system</span></button>
   </div>
+</header>
 
-  <div class="grid">
-    <main class="sheet" id="sheet"></main>
-    <aside class="card">
-      <h3>Answer sheet</h3>
-      <p class="sub" id="sheetSub">Tap a box to jump to that question.</p>
-      <div class="answergrid" id="agrid"></div>
-      <div class="legend"><span><i style="background:var(--ok-soft);border:1px solid var(--ok)"></i>Correct</span><span><i style="background:var(--bad-soft);border:1px solid var(--bad)"></i>Missed</span><span><i style="border:1px solid var(--line)"></i>Not answered</span></div>
-      <p class="sub" id="confirmReset" hidden style="margin-top:12px">Clear your answers for this view? <button class="btn" id="resetYes" type="button">Clear</button> <button class="btn" id="resetNo" type="button">Keep</button></p>
-    </aside>
+<main class="wrap" id="app"></main>
+
+<nav class="navbar" id="navbar" hidden>
+  <div class="wrap">
+    <button class="btn ghost" id="prevBtn" type="button">← Prev</button>
+    <div class="mid" id="navMid"></div>
+    <button class="btn" id="nextBtn" type="button">Next →</button>
   </div>
-
-  <section class="sources" id="sources">
-    <h2>Where the questions and answers came from</h2>
-    <p>Questions come from the <b>Exams</b> folder. Chapter placement and the answers to unmarked papers come from the <b>slides</b> folder. Every question shows one of these labels once you answer it:</p>
-    <ul class="provkey">
-      <li><span class="prov key">OFFICIAL KEY</span> The answer key printed in the exam file (model answer).</li>
-      <li><span class="prov graded">GRADED PAPER</span> A student's paper that the instructor marked correct (or marked wrong, so the other answer is right).</li>
-      <li><span class="prov marked">MARKED + CHECKED</span> An answer selected on a quiz screenshot or boxed on the paper, which I checked against the slides.</li>
-      <li><span class="prov slides">FROM SLIDES</span> The paper has no answer; the answer comes from the chapter slides.</li>
-      <li><span class="prov worked">WORKED OUT</span> The paper has no answer; I worked it out from the tables or diagram printed in the question.</li>
-      <li><span class="prov drawing">NO MODEL ANSWER</span> A drawing question (ER/EER diagram or architecture). Draw it yourself; it doesn't count toward your score.</li>
-    </ul>
-    <h3 class="sub2">Exam files used</h3>
-    <div class="tablewrap"><table class="src" id="srcTable"></table></div>
-    <h3 class="sub2">Slides used for each chapter</h3>
-    <div class="tablewrap"><table class="src" id="chTable"></table></div>
-    <h3 class="sub2">Left out</h3>
-    <ul class="skip" id="skipList"></ul>
-  </section>
-</div>
+</nav>
 
 <script>
-const DATA = /*__DATA__*/null;
-const LETTERS = "abcdefgh";
-const PROV = { key: "OFFICIAL KEY", graded: "GRADED PAPER", marked: "MARKED + CHECKED", slides: "FROM SLIDES", worked: "WORKED OUT", drawing: "NO MODEL ANSWER" };
-const STORE = "cs370-exam-bank-v1";
-let state = {};
-try { state = JSON.parse(localStorage.getItem(STORE) || "{}") || {}; } catch (e) { state = {}; }
-const save = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} };
+window.QDATA = /*__DATA__*/null;
+</script>
+<script>
+(function () {
+  "use strict";
+  var D = window.QDATA;
+  var app = document.getElementById("app");
+  var navbar = document.getElementById("navbar");
+  var STORE = "cs370bank.v2";
 
-let chapter = 0, filter = "all", shuffled = false, list = [], pos = 0, order = {};
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // ---------- persistence (per-viewer convenience only) ----------
+  var saved = { answers: {}, shuffle: false, types: ["mcq", "tf", "short", "draw"] };
+  try { var raw = localStorage.getItem(STORE); if (raw) saved = Object.assign(saved, JSON.parse(raw)); } catch (e) {}
+  function persist() { try { localStorage.setItem(STORE, JSON.stringify(saved)); } catch (e) {} }
 
-function seededShuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-  return a;
-}
-function pool() {
-  let qs = DATA.q.filter(q => !chapter || q.ch === chapter);
-  if (filter === "todo") qs = qs.filter(q => !state[q.id]);
-  if (filter === "missed") qs = qs.filter(q => state[q.id] && !state[q.id].ok && !state[q.id].done);
-  if (filter === "mcq") qs = qs.filter(q => q.t === "mcq");
-  if (filter === "reveal") qs = qs.filter(q => q.t === "reveal");
-  if (filter === "draw") qs = qs.filter(q => q.t === "draw");
-  return qs;
-}
-function rebuild(keepId) {
-  let qs = pool();
-  if (shuffled) {
-    const key = chapter + ":" + filter;
-    if (!order[key] || order[key].length !== qs.length) order[key] = seededShuffle(qs.map(q => q.id));
-    const idx = Object.fromEntries(order[key].map((id, i) => [id, i]));
-    qs.sort((a, b) => idx[a.id] - idx[b.id]);
+  // ---------- theme ----------
+  var themes = ["system", "light", "dark"];
+  var theme = "system";
+  try { theme = localStorage.getItem(STORE + ".theme") || "system"; } catch (e) {}
+  function applyTheme() {
+    if (theme === "system") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", theme);
+    document.getElementById("themeLbl").textContent = theme;
   }
-  list = qs;
-  const k = keepId ? list.findIndex(q => q.id === keepId) : -1;
-  pos = k >= 0 ? k : Math.min(pos, Math.max(0, list.length - 1));
-  render();
-}
+  applyTheme();
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    theme = themes[(themes.indexOf(theme) + 1) % 3];
+    try { localStorage.setItem(STORE + ".theme", theme); } catch (e) {}
+    applyTheme();
+  });
 
-function renderChapters() {
-  const nav = $("chapters");
-  const btn = (n, label, sub, qs) => {
-    const done = qs.filter(q => state[q.id]).length, ok = qs.filter(q => state[q.id] && state[q.id].ok).length;
-    return `<button class="chap" type="button" data-ch="${n}" aria-pressed="${chapter === n}" title="${esc(sub)}">
-      <span class="n">${label}</span><span class="t">${done}/${qs.length} done · ${ok} right</span>
-      <span class="bar"><i style="width:${qs.length ? (ok / qs.length * 100) : 0}%"></i></span></button>`;
+  // ---------- helpers ----------
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function plain(s) { return String(s).replace(/<[^>]+>/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim(); }
+  function chNums() { return Object.keys(D.chapters).map(Number).sort(function (a, b) { return a - b; }); }
+  var TYPE_LABEL = { mcq: "Multiple choice", tf: "True / False", short: "Written", draw: "Drawing" };
+  var PROV = {
+    key: ["Official key", "Taken from the answer key printed in the exam file."],
+    graded: ["Graded paper", "Taken from a student's paper that the instructor marked."],
+    marked: ["Marked + checked", "The answer selected on the quiz screenshot, checked against the slides."],
+    slides: ["From slides", "The exam paper has no answer; this one comes from the slide shown above."],
+    worked: ["Worked out", "The exam paper has no answer; worked out from the question's own tables or diagram, using the slide shown above."],
+    drawing: ["No model answer", "Drawing question. Draw it yourself and compare it with the notation on the slide shown above."]
   };
-  let h = btn(0, "All", "All chapters", DATA.q);
-  for (const [n, c] of Object.entries(DATA.ch)) h += btn(+n, "Ch " + n, c.n, DATA.q.filter(q => q.ch === +n));
-  nav.innerHTML = h;
-  nav.querySelectorAll(".chap").forEach(b => b.onclick = () => { chapter = +b.dataset.ch; pos = 0; renderChapters(); rebuild(); });
-  $("chName").textContent = chapter ? `Chapter ${chapter} · ${DATA.ch[chapter].n}` : "All chapters";
-}
+  var byCh = {};
+  D.questions.forEach(function (q) { (byCh[q.ch] = byCh[q.ch] || []).push(q); });
+  var byId = {};
+  D.questions.forEach(function (q) { byId[q.id] = q; });
 
-function renderScore() {
-  const vals = Object.values(state).filter(v => !v.done);
-  $("sDone").textContent = vals.length;
-  $("sOk").textContent = vals.filter(v => v.ok).length;
-  $("sNo").textContent = vals.filter(v => !v.ok).length;
-}
-
-function srcHtml(q) {
-  const papers = q.s.map(k => `<b>${esc(DATA.src[k].n)}</b> <span>(${esc(DATA.src[k].f)})</span>`).join("<br>");
-  const slide = `Chapter ${q.ch} slides (${esc(DATA.ch[q.ch].f)})`;
-  return `<div class="srcline"><div><span class="prov ${q.p}">${PROV[q.p]}</span>${q.p === "slides" ? "Answer from " + slide : q.p === "worked" ? "Answer worked out from the exam's own tables/diagram" : q.p === "drawing" ? "Drawing question; no answer included" : "Answer from the exam paper"}</div><div>Question from: ${papers}</div></div>`;
-}
-
-function render() {
-  renderScore();
-  const sheet = $("sheet");
-  if (!list.length) {
-    sheet.innerHTML = `<div class="empty"><h3>Nothing here yet</h3><p>${filter === "missed" ? "You haven't missed any questions in this view." : filter === "todo" ? "You've answered every question in this view." : "No questions match."}</p><button class="btn" type="button" id="showAll">Show all questions</button></div>`;
-    $("showAll").onclick = () => { filter = "all"; $("filter").value = "all"; rebuild(); };
-    renderGrid(); return;
+  function shuffled(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
   }
-  const q = list[pos], st = state[q.id];
-  const isTF = q.t === "mcq" && q.o.length === 2 && q.o[0] === "True";
-  let h = `<div class="qmeta"><span class="num">Q ${pos + 1} / ${list.length}</span><span class="pill">Chapter ${q.ch}</span><span class="pill">${q.t === "reveal" ? "Written" : q.t === "draw" ? "Drawing" : isTF ? "True / False" : "Multiple choice"}</span></div>`;
-  if (q.img) h += `<figure class="figure"><img src="${DATA.img[q.img]}" alt="Diagram from the exam paper"><figcaption>Diagram from the exam paper</figcaption></figure>`;
-  if (q.ctx) h += `<div class="ctx">${q.ctx}</div>`;
-  h += `<div class="qtext">${q.q}</div>`;
-  if (q.t === "mcq") {
-    h += `<div class="opts${isTF ? " tf" : ""}" role="group" aria-label="Answer choices">` + q.o.map((o, i) => {
-      let cls = "", mk = "";
-      if (st) {
-        if (i === q.a) { cls = "right"; mk = "✓ correct"; }
-        else if (i === st.pick) { cls = "wrong"; mk = "✗ your answer"; }
-        if (i === st.pick) cls += " picked";
-      }
-      return `<button class="opt ${cls}" type="button" data-i="${i}" ${st ? "disabled" : ""}><span class="l">${isTF ? o[0] : LETTERS[i]}</span><span class="txt">${esc(o)}</span><span class="mk">${mk}</span></button>`;
-    }).join("") + `</div>`;
-    if (st) {
-      h += `<div class="feedback"><div class="verdict ${st.ok ? "ok" : "no"}">${st.ok ? "Correct" : "Not quite. The answer is " + (isTF ? q.o[q.a] : "(" + LETTERS[q.a] + ") " + esc(q.o[q.a]))}</div>${q.e ? `<p class="why">${q.e}</p>` : ""}${srcHtml(q)}</div>`;
-    }
-  } else if (q.t === "draw") {
-    h += `<div class="answer"><div class="eyebrow" style="margin-bottom:6px">No model answer</div><div class="model">Draw it on paper, then check it against the Chapter ${q.ch} slides or ask your instructor.</div></div>`;
-    h += `<div class="feedback">${q.e ? `<p class="why">${q.e}</p>` : ""}`;
-    h += st ? `<div class="selfmark"><span class="verdict ok">Marked as practised</span><button class="btn" type="button" id="undraw">Undo</button></div>` : `<div class="selfmark"><button class="btn primary" type="button" id="drew">Mark as practised</button><span class="kbd">Drawing questions don't count toward your score.</span></div>`;
-    h += srcHtml(q) + `</div>`;
-  } else {
-    const shown = st || (q._shown);
-    if (!shown) h += `<button class="btn primary" type="button" id="reveal">Show model answer</button> <span class="kbd">Try writing it first.</span>`;
+  function chTitle(n) { return n === "all" ? "All chapters" : "Chapter " + n + " · " + D.chapters[n].title; }
+
+  // ---------- state ----------
+  var S = { view: "home", chapter: null, order: [], base: [], idx: 0, review: false, shuffled: false };
+  var resetArmed = false;
+
+  function poolFor(ch) {
+    var list = ch === "all" ? D.questions.slice() : (byCh[ch] || []).slice();
+    return list.filter(function (q) { return saved.types.indexOf(q.t) >= 0; });
+  }
+  function start(ch, ids, review) {
+    var list = ids ? ids.map(function (id) { return byId[id]; }) : poolFor(ch);
+    if (!list.length) return;
+    S.chapter = ch;
+    S.review = !!review;
+    S.base = list.map(function (q) { return q.id; });
+    S.shuffled = !review && saved.shuffle;
+    S.order = S.shuffled ? shuffled(S.base) : S.base.slice();
+    S.idx = 0;
+    S.view = "quiz";
+    render();
+  }
+
+  // ---------- home ----------
+  function answeredStats(list) {
+    var ok = 0, done = 0;
+    list.forEach(function (q) { var a = saved.answers[q.id]; if (a && a.done) { done++; if (a.ok) ok++; } });
+    return { ok: ok, done: done };
+  }
+  function renderHome() {
+    navbar.hidden = true;
+    var total = D.questions.length;
+    var exams = Object.keys(D.sources).length;
+    var st = answeredStats(D.questions);
+    var h = '<section class="hero"><span class="label">Exam questions sorted by chapter</span>' +
+      '<h1>Practice every past database exam question, chapter by chapter.</h1>' +
+      '<p>One question at a time, newest exams first. Each solution shows the slide it comes from and the exam it was taken from. Pick a chapter to start.</p>' +
+      '<div class="stats"><span><b>' + total + '</b> questions</span><span>from <b>' + exams + '</b> exams &amp; quizzes</span><span><b>' + st.done + '</b> answered · <b>' + st.ok + '</b> correct</span></div></section>';
+
+    h += '<section class="controls" aria-label="Practice settings">' +
+      '<div class="ctl-row"><span class="label">Order</span>' +
+      '<button type="button" class="switch" id="shuffleSw" role="switch" aria-checked="' + (saved.shuffle ? "true" : "false") + '"><i></i>Shuffle questions</button><span class="label">' + (saved.shuffle ? 'random order' : 'newest exam first') + '</span></div>' +
+      '<div class="ctl-row"><span class="label">Question types</span>' +
+      ["mcq", "tf", "short", "draw"].map(function (t) {
+        return '<button type="button" class="chip" data-type="' + t + '" aria-pressed="' + (saved.types.indexOf(t) >= 0) + '">' + TYPE_LABEL[t] + '</button>';
+      }).join("") + '</div>' +
+      '<div class="ctl-row"><span class="label">Progress</span>' +
+      (st.done
+        ? (resetArmed
+          ? '<span style="font-size:.9rem">Clear all ' + st.done + ' saved answers?</span><button type="button" class="chip" id="resetYes">Yes, reset</button><button type="button" class="chip" id="resetNo">Cancel</button>'
+          : '<button type="button" class="chip" id="resetBtn">Reset my answers</button>')
+        : '<span style="font-size:.9rem;color:var(--muted)">No answers saved yet</span>') +
+      '</div></section>';
+
+    h += '<div class="group-title"><h2>Chapters</h2><span class="label">' + chNums().length + ' chapters</span></div><div class="grid">';
+    h += chapterCard("all");
+    chNums().forEach(function (n) { if (byCh[n]) h += chapterCard(n); });
+    h += '</div>';
+    h += '<p class="note"><b>Keys:</b> <span class="kbd">←</span> <span class="kbd">→</span> move between questions, <span class="kbd">1</span>–<span class="kbd">4</span> or <span class="kbd">T</span>/<span class="kbd">F</span> pick an option, <span class="kbd">Enter</span> shows the solution. Your answers are remembered in this browser only.</p>';
+    h += sourcesSection();
+    app.innerHTML = h;
+
+    document.getElementById("shuffleSw").addEventListener("click", function () {
+      saved.shuffle = !saved.shuffle; persist(); renderHome();
+    });
+    var rb = document.getElementById("resetBtn");
+    if (rb) rb.addEventListener("click", function () { resetArmed = true; renderHome(); });
+    var ry = document.getElementById("resetYes");
+    if (ry) ry.addEventListener("click", function () { saved.answers = {}; resetArmed = false; persist(); renderHome(); });
+    var rn = document.getElementById("resetNo");
+    if (rn) rn.addEventListener("click", function () { resetArmed = false; renderHome(); });
+    app.querySelectorAll("[data-type]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var t = b.getAttribute("data-type"), i = saved.types.indexOf(t);
+        if (i >= 0) { if (saved.types.length > 1) saved.types.splice(i, 1); } else saved.types.push(t);
+        persist(); renderHome();
+      });
+    });
+    app.querySelectorAll("[data-ch]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var v = b.getAttribute("data-ch"); start(v === "all" ? "all" : +v);
+      });
+    });
+  }
+  function chapterCard(n) {
+    var list = poolFor(n);
+    var all = n === "all" ? D.questions : byCh[n];
+    var st = answeredStats(all);
+    var pct = all.length ? Math.round(100 * st.done / all.length) : 0;
+    var meta, title, num;
+    if (n === "all") { num = "∗"; title = "All chapters mixed"; meta = list.length + " questions · good for a full mock exam"; }
     else {
-      h += `<div class="answer"><div class="eyebrow" style="margin-bottom:8px">Model answer</div><div class="model">${q.ans}</div></div>`;
-      h += `<div class="feedback">${q.e ? `<p class="why">${q.e}</p>` : ""}`;
-      if (!st) h += `<div class="selfmark"><span class="kbd">How did you do?</span><button class="btn" type="button" data-self="1">I got it</button><button class="btn" type="button" data-self="0">I missed it</button></div>`;
-      else h += `<div class="verdict ${st.ok ? "ok" : "no"}">${st.ok ? "Marked as got it" : "Marked as missed"}</div>`;
-      h += srcHtml(q) + `</div>`;
+      var c = D.chapters[n];
+      num = n; title = c.title;
+      meta = list.length + " question" + (list.length === 1 ? "" : "s") + " · " + c.slides + " slides";
     }
+    return '<button type="button" class="ch' + (n === "all" ? " all" : "") + '" data-ch="' + n + '"' + (list.length ? "" : " disabled") + '>' +
+      '<span class="num">' + num + '</span><span class="t">' + esc(title) + '</span>' +
+      '<span class="meta">' + esc(meta) + (st.done ? " · " + st.done + " done" : "") + '</span>' +
+      '<span class="bar" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button>';
   }
-  h += `<div class="nav"><button class="btn" type="button" id="prev" ${pos === 0 ? "disabled" : ""}>← Previous</button><span class="kbd">Keys: a–d or t/f to answer, ← → to move</span><button class="btn primary" type="button" id="next" ${pos >= list.length - 1 ? "disabled" : ""}>Next →</button></div>`;
-  sheet.innerHTML = h;
-  sheet.querySelectorAll(".opt:not([disabled])").forEach(b => b.onclick = () => answer(q, +b.dataset.i));
-  if ($("reveal")) $("reveal").onclick = () => { q._shown = true; render(); };
-  if ($("drew")) $("drew").onclick = () => { state[q.id] = { done: true }; save(); renderChapters(); render(); };
-  if ($("undraw")) $("undraw").onclick = () => { delete state[q.id]; save(); renderChapters(); render(); };
-  sheet.querySelectorAll("[data-self]").forEach(b => b.onclick = () => { state[q.id] = { pick: -1, ok: b.dataset.self === "1" }; save(); renderChapters(); render(); });
-  $("prev").onclick = () => go(-1);
-  $("next").onclick = () => go(1);
-  renderGrid();
-}
+  function sourcesSection() {
+    var count = {};
+    D.questions.forEach(function (q) { q.from.forEach(function (s) { count[s] = (count[s] || 0) + 1; }); });
+    var srcs = Object.keys(D.sources).sort(function (a, b) { return D.sources[b].date - D.sources[a].date; });
+    return '<section class="sources" aria-label="Where the questions and answers come from"><h2>Where the questions and answers come from</h2>' +
+      '<p>Questions come from the past exams below, newest first. Every solution names the slide in your slides folder that supports it, and says how the answer was obtained:</p><ul class="provkey">' +
+      Object.keys(PROV).map(function (k) { return '<li><span class="prov ' + k + '">' + PROV[k][0] + '</span>' + esc(PROV[k][1]) + '</li>'; }).join("") + '</ul>' +
+      '<h3 class="label" style="margin-top:.4rem">Exam files</h3><ul class="srclist">' +
+      srcs.map(function (k) { var s = D.sources[k]; return '<li><b>' + esc(s.label) + '</b><span class="file">Exams/' + esc(s.file) + '</span><span class="how">' + esc(s.how) + '</span><span class="n">' + (count[k] || 0) + ' q</span></li>'; }).join("") + '</ul>' +
+      '<h3 class="label" style="margin-top:.4rem">Slide decks</h3><ul class="srclist">' +
+      chNums().map(function (n) { var c = D.chapters[n]; return '<li><b>Chapter ' + n + ' · ' + esc(c.title) + '</b><span class="file">slides/' + esc(c.deck) + '</span><span class="n">' + (byCh[n] || []).length + ' q</span></li>'; }).join("") + '</ul>' +
+      '<h3 class="label" style="margin-top:.4rem">Left out</h3><ul class="skip">' + D.skipped.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></section>';
+  }
 
-function answer(q, i) {
-  state[q.id] = { pick: i, ok: i === q.a };
-  save(); renderChapters(); render();
-}
-function go(d) {
-  const n = pos + d;
-  if (n < 0 || n >= list.length) return;
-  pos = n; render();
-  $("sheet").scrollIntoView({ block: "nearest", behavior: "smooth" });
-}
+  // ---------- question ----------
+  function optKey(q, i) { return q.t === "tf" ? (i === 0 ? "T" : "F") : String.fromCharCode(65 + i); }
+  function renderQuiz() {
+    var id = S.order[S.idx], q = byId[id], rec = saved.answers[id] || {};
+    var n = S.order.length;
+    navbar.hidden = false;
+    var h = '<section class="qhead"><div class="row"><span class="pos">' + (S.idx + 1) + ' / ' + n + '</span>' +
+      '<h2>' + esc(chTitle(q.ch)) + '</h2></div>' +
+      '<div class="row"><span class="tag">' + TYPE_LABEL[q.t] + '</span>' + (S.review ? '<span class="tag review">Reviewing mistakes</span>' : '') +
+      '<span class="tag">' + esc(D.sources[q.from[0]].label) + '</span><span class="spacer"></span>' +
+      (S.review ? '' : '<button type="button" class="iconbtn" id="shuffleNow">' + (S.shuffled ? '↺ Newest first' : '⤮ Shuffle') + '</button>') + '</div>' +
+      '<div class="frames-wrap"><div class="frames" role="list" aria-label="Questions in this set">' +
+      S.order.map(function (qid, i) {
+        var r = saved.answers[qid], cls = [];
+        if (r && r.done) cls.push(r.ok ? "ok" : (r.ok === false ? "bad" : "seen"));
+        if (i === S.idx) cls.push("cur");
+        return '<button type="button" role="listitem" class="' + cls.join(" ") + '" data-jump="' + i + '" aria-label="Question ' + (i + 1) + '"></button>';
+      }).join("") + '</div><div class="legend"><span><i style="background:var(--ok)"></i>correct</span><span><i style="background:var(--bad)"></i>missed</span><span><i style="background:var(--rule)"></i>viewed</span><span><i style="background:var(--frame)"></i>not yet</span></div></div></section>';
 
-function renderGrid() {
-  const g = $("agrid");
-  g.innerHTML = list.map((q, i) => {
-    const st = state[q.id];
-    let a = "";
-    if (st) a = st.done ? "✎" : q.t === "reveal" ? (st.ok ? "✓" : "✗") : (q.o.length === 2 && q.o[0] === "True" ? q.o[st.pick][0] : LETTERS[st.pick]);
-    return `<button class="cell ${st && !st.done ? (st.ok ? "ok" : "no") : ""} ${i === pos ? "cur" : ""}" type="button" data-i="${i}" aria-label="Question ${i + 1}${st ? (st.done ? ", practised" : st.ok ? ", correct" : ", missed") : ""}"><span class="i">${i + 1}</span><span class="a">${a}</span></button>`;
-  }).join("");
-  g.querySelectorAll(".cell").forEach(c => c.onclick = () => { pos = +c.dataset.i; render(); });
-  const cur = g.querySelector(".cur");
-  if (cur) { const top = cur.offsetTop - g.offsetTop; if (top < g.scrollTop || top > g.scrollTop + g.clientHeight - 44) g.scrollTop = top - 60; }
-  $("sheetSub").textContent = `${list.length} question${list.length === 1 ? "" : "s"} in this view. Tap a box to jump.`;
-}
+    h += '<article class="sheet" aria-live="polite">';
+    if (q.ctx) h += '<div class="ctx">' + q.ctx + '</div>';
+    h += '<div class="qtext">' + q.q + '</div>';
+    if (q.img) h += '<figure class="fig"><img src="' + D.img[q.img] + '" alt="Figure from the original exam paper"><figcaption>Figure from the exam paper</figcaption></figure>';
 
-document.addEventListener("keydown", e => {
-  if (e.target.closest("select, input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
-  const q = list[pos]; if (!q) return;
-  if (e.key === "ArrowRight") return go(1);
-  if (e.key === "ArrowLeft") return go(-1);
-  if (q.t !== "mcq" || state[q.id]) return;
-  const k = e.key.toLowerCase();
-  const isTF = q.o.length === 2 && q.o[0] === "True";
-  let i = isTF ? (k === "t" ? 0 : k === "f" ? 1 : -1) : LETTERS.indexOf(k);
-  if (i < 0 && /^[1-9]$/.test(k)) i = +k - 1;
-  if (i >= 0 && i < q.o.length) answer(q, i);
-});
-$("filter").onchange = e => { filter = e.target.value; pos = 0; rebuild(); };
-$("shuffle").onclick = () => { shuffled = !shuffled; order = {}; $("shuffle").setAttribute("aria-pressed", shuffled); $("shuffle").textContent = shuffled ? "Shuffled" : "Shuffle"; pos = 0; rebuild(); };
-$("reset").onclick = () => { $("confirmReset").hidden = false; };
-$("resetNo").onclick = () => { $("confirmReset").hidden = true; };
-$("resetYes").onclick = () => {
-  DATA.q.filter(q => !chapter || q.ch === chapter).forEach(q => { delete state[q.id]; delete q._shown; });
-  save(); $("confirmReset").hidden = true; renderChapters(); rebuild();
-};
+    var revealed = !!rec.done;
+    if (q.t === "mcq" || q.t === "tf") {
+      h += '<div class="opts' + (q.t === "tf" ? " tf" : "") + '" role="group" aria-label="Answer options">' + q.o.map(function (o, i) {
+        var cls = "opt", res = "";
+        if (revealed) {
+          if (i === q.a) { cls += " right"; res = "ANSWER"; }
+          else if (i === rec.choice) { cls += " wrong"; res = "YOUR PICK"; }
+        }
+        return '<button type="button" class="' + cls + '" data-opt="' + i + '"' + (revealed ? " disabled" : "") + '>' +
+          '<span class="key">' + optKey(q, i) + '</span>' +
+          '<span class="txt">' + esc(o) + '</span><span class="res">' + res + '</span></button>';
+      }).join("") + '</div>';
+      if (revealed) {
+        h += rec.ok ? '<div class="verdict ok">✓ Correct</div>' : '<div class="verdict bad">✗ ' + (rec.choice === -1 ? 'Shown without answering, so it counts as a mistake. The answer is ' : 'Not quite. The answer is ') + (q.t === "tf" ? esc(q.o[q.a]) : optKey(q, q.a)) + '</div>';
+      } else {
+        h += '<div class="reveal"><button type="button" class="btn ghost" id="showSol">Show solution</button></div>';
+      }
+    } else if (!revealed) {
+      h += '<div class="reveal"><button type="button" class="btn accent" id="showSol">Show solution</button><span class="label">' + (q.t === "draw" ? 'Draw it on paper first' : 'Work it out first, then compare') + '</span></div>';
+    }
 
-// sources section
-(function sources() {
-  const used = {};
-  DATA.q.forEach(q => q.s.forEach(s => used[s] = (used[s] || 0) + 1));
-  $("srcTable").innerHTML = `<tr><th>Exam</th><th>File (in Exams/Exams/)</th><th>Where the answers came from</th><th style="text-align:right">Questions</th></tr>` +
-    Object.entries(DATA.src).map(([k, s]) => `<tr><td>${esc(s.n)}</td><td class="f">${esc(s.f)}</td><td>${esc(s.h)}</td><td class="c">${used[k] || 0}</td></tr>`).join("");
-  $("chTable").innerHTML = `<tr><th>Chapter</th><th>Topic</th><th>Slide file (in slides/)</th><th style="text-align:right">Questions</th></tr>` +
-    Object.entries(DATA.ch).map(([n, c]) => `<tr><td>${n}</td><td>${esc(c.n)}</td><td class="f">${esc(c.f)}</td><td class="c">${DATA.q.filter(q => q.ch === +n).length}</td></tr>`).join("");
-  $("skipList").innerHTML = DATA.skipped.map(s => `<li>${esc(s)}</li>`).join("");
-  $("lede").textContent = `${DATA.q.length} questions from ${Object.keys(DATA.src).length} past midterms, finals and quizzes, sorted by chapter. Pick an answer to check it. Every question says which paper it came from and where its answer came from.`;
+    if (revealed) h += solution(q, rec);
+    h += '</article>';
+    app.innerHTML = h;
+
+    app.querySelectorAll("[data-opt]").forEach(function (b) {
+      b.addEventListener("click", function () { choose(+b.getAttribute("data-opt")); });
+    });
+    var ss = document.getElementById("showSol");
+    if (ss) ss.addEventListener("click", reveal);
+    var sh = document.getElementById("shuffleNow");
+    if (sh) sh.addEventListener("click", function () {
+      S.shuffled = !S.shuffled;
+      S.order = S.shuffled ? shuffled(S.base) : S.base.slice();
+      S.idx = 0; render();
+    });
+    app.querySelectorAll("[data-grade]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var r = saved.answers[id] || {}; r.done = true; r.ok = b.getAttribute("data-grade") === "1";
+        saved.answers[id] = r; persist(); renderQuiz();
+      });
+    });
+    app.querySelectorAll("[data-jump]").forEach(function (b) {
+      b.addEventListener("click", function () { S.idx = +b.getAttribute("data-jump"); render(); });
+    });
+
+    document.getElementById("prevBtn").disabled = S.idx === 0;
+    document.getElementById("nextBtn").textContent = S.idx === n - 1 ? "Finish →" : "Next →";
+    var st = answeredStats(S.order.map(function (x) { return byId[x]; }));
+    document.getElementById("navMid").innerHTML = '<span class="hide-sm">' + st.done + ' answered · </span>' + st.ok + ' correct';
+  }
+
+  function solution(q, rec) {
+    var h = '<section class="sol" aria-label="Solution">';
+    if (q.t === "short") {
+      h += '<div><h3>Answer</h3><div class="answer">' + q.a + '</div></div>';
+    } else if (q.t === "draw") {
+      h += '<div><h3>Answer</h3><div class="answer none">There is no model answer for drawing questions. Draw it on paper and check it against the notation on the slide below.</div></div>';
+    } else {
+      h += '<div><h3>Answer</h3><div class="answer"><b>' + (q.t === "tf" ? "" : optKey(q, q.a) + ". ") + esc(q.o[q.a]) + '</b></div></div>';
+    }
+    if (q.e) h += '<div><h3>' + (q.t === "draw" ? 'Note' : 'Why') + '</h3><div class="expl">' + q.e + '</div></div>';
+    if (q.t === "short") {
+      var g = rec.ok === true ? "1" : rec.ok === false ? "0" : "";
+      h += '<div class="selfgrade"><span class="label">Did you get it?</span>' +
+        '<button type="button" class="btn ' + (g === "1" ? "accent" : "ghost") + '" data-grade="1">Yes, I got it</button>' +
+        '<button type="button" class="btn ' + (g === "0" ? "" : "ghost") + '" data-grade="0">No, review later</button></div>';
+    }
+    // where it came from
+    var sl = q.sl, dch = D.decks[sl[0]];
+    var lect = '<span class="slideref">Chapter ' + dch + ' · ' + esc(D.chapters[dch].title) + ', slide <mark>' + sl[2] + '</mark></span>' +
+      '<span class="file">slides/' + esc(sl[0]) + (sl[2] !== sl[1] ? ' · PDF page ' + sl[1] : '') + '</span>';
+    h += '<div class="where"><div class="item"><span class="label">Slides</span><div>' + lect + '</div></div>' +
+      '<div class="item"><span class="label">Answer from</span><div><span class="prov ' + q.p + '">' + PROV[q.p][0] + '</span><span style="font-size:.9rem">' + esc(PROV[q.p][1]) + '</span></div></div>' +
+      '<div class="item"><span class="label">Exam source' + (q.from.length > 1 ? "s" : "") + '</span><ul>' +
+      q.from.map(function (f) {
+        var s = D.sources[f];
+        return '<li><b>' + esc(s.label) + '</b><span class="file">Exams/' + esc(s.file) + '</span></li>';
+      }).join("") + '</ul></div></div>';
+    h += '</section>';
+    return h;
+  }
+
+  function choose(i) {
+    var id = S.order[S.idx], q = byId[id];
+    if (!(q.t === "mcq" || q.t === "tf")) return;
+    var r = saved.answers[id];
+    if (r && r.done) return;
+    saved.answers[id] = { done: true, choice: i, ok: i === q.a };
+    persist(); renderQuiz();
+  }
+  function reveal() {
+    var id = S.order[S.idx], q = byId[id];
+    var r = saved.answers[id] || {};
+    if (r.done) return;
+    if (q.t === "short" || q.t === "draw") { r.done = true; r.ok = null; }
+    else { r.done = true; r.choice = -1; r.ok = false; }
+    saved.answers[id] = r; persist(); renderQuiz();
+  }
+
+  // ---------- done ----------
+  function renderDone() {
+    navbar.hidden = true;
+    var list = S.order.map(function (x) { return byId[x]; });
+    var st = answeredStats(list);
+    var scored = list.filter(function (q) { return q.t !== "draw"; });
+    var wrong = [], skipped = [];
+    S.order.forEach(function (id, i) {
+      var q = byId[id], r = saved.answers[id];
+      if (q.t === "draw") return;
+      if (r && r.done && r.ok === false) wrong.push(i);
+      else if (!r || !r.done || r.ok !== true) skipped.push(i);
+    });
+    var stScored = answeredStats(scored);
+    var h = '<section class="done"><span class="label">' + esc(chTitle(S.chapter)) + (S.review ? ' · review' : '') + '</span>' +
+      '<div class="score">' + stScored.ok + ' / ' + scored.length + '</div>' +
+      '<p style="margin:0;color:var(--muted)">' + wrong.length + ' mistake' + (wrong.length === 1 ? '' : 's') + (skipped.length ? ' · ' + skipped.length + ' skipped or not graded' : '') + '. Written questions count as correct when you mark them “Yes, I got it”. Drawing questions aren\'t scored.</p>' +
+      '<div class="reveal">' +
+      (wrong.length ? '<button type="button" class="btn accent" id="reviewMissed">Review my ' + wrong.length + ' mistake' + (wrong.length === 1 ? '' : 's') + '</button>' +
+        '<button type="button" class="btn" id="retryMissed">Retry them from scratch</button>' : '<span class="verdict ok">✓ No mistakes in this set</span>') +
+      (skipped.length ? '<button type="button" class="btn ghost" id="doSkipped">Go to the ' + skipped.length + ' skipped</button>' : '') +
+      '<button type="button" class="btn ghost" id="again">Start this set again</button>' +
+      '<button type="button" class="btn ghost" id="back">All chapters</button></div>';
+    function lst(title, idxs) {
+      return '<div><h3 class="label" style="margin:.4rem 0 .6rem">' + title + '</h3><ul class="missed">' + idxs.map(function (i) {
+        var q = byId[S.order[i]];
+        return '<li><button type="button" data-jump="' + i + '"><span class="qline"><span class="pos">' + (i + 1) + '.</span> ' + esc(plain(q.q)) + '</span><span class="label">' + TYPE_LABEL[q.t] + ' · ' + esc(D.sources[q.from[0]].label) + '</span></button></li>';
+      }).join("") + '</ul></div>';
+    }
+    if (wrong.length) h += lst("Your mistakes", wrong);
+    if (skipped.length) h += lst("Skipped or not graded", skipped);
+    h += '</section>';
+    app.innerHTML = h;
+    var wrongIds = wrong.map(function (i) { return S.order[i]; });
+    var skippedIds = skipped.map(function (i) { return S.order[i]; });
+    var rv = document.getElementById("reviewMissed");
+    if (rv) rv.addEventListener("click", function () { start(S.chapter, wrongIds, true); });
+    var rm = document.getElementById("retryMissed");
+    if (rm) rm.addEventListener("click", function () {
+      wrongIds.forEach(function (id) { delete saved.answers[id]; }); persist();
+      start(S.chapter, wrongIds);
+    });
+    var ds = document.getElementById("doSkipped");
+    if (ds) ds.addEventListener("click", function () { start(S.chapter, skippedIds); });
+    document.getElementById("again").addEventListener("click", function () {
+      S.order.forEach(function (id) { delete saved.answers[id]; }); persist();
+      start(S.chapter);
+    });
+    document.getElementById("back").addEventListener("click", goHome);
+    app.querySelectorAll("[data-jump]").forEach(function (b) {
+      b.addEventListener("click", function () { S.idx = +b.getAttribute("data-jump"); S.view = "quiz"; render(); });
+    });
+  }
+
+  function render() {
+    if (S.view === "home") renderHome();
+    else if (S.view === "quiz") renderQuiz();
+    else renderDone();
+    window.scrollTo(0, 0);
+  }
+  function goHome() { S.view = "home"; render(); }
+
+  document.getElementById("homeBtn").addEventListener("click", goHome);
+  document.getElementById("prevBtn").addEventListener("click", function () { if (S.idx > 0) { S.idx--; render(); } });
+  document.getElementById("nextBtn").addEventListener("click", function () {
+    if (S.idx < S.order.length - 1) { S.idx++; render(); } else { S.view = "done"; render(); }
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (S.view !== "quiz" || ev.altKey || ev.ctrlKey || ev.metaKey) return;
+    var tag = (ev.target && ev.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    var q = byId[S.order[S.idx]], k = ev.key.toLowerCase();
+    if (ev.key === "ArrowRight") { document.getElementById("nextBtn").click(); ev.preventDefault(); }
+    else if (ev.key === "ArrowLeft") { if (S.idx > 0) { S.idx--; render(); } ev.preventDefault(); }
+    else if (q.o && /^[1-6]$/.test(k) && +k <= q.o.length) choose(+k - 1);
+    else if (q.t === "tf" && (k === "t" || k === "f")) choose(k === "t" ? 0 : 1);
+    else if (q.t === "mcq" && /^[a-f]$/.test(k) && k.charCodeAt(0) - 97 < q.o.length) choose(k.charCodeAt(0) - 97);
+    else if (ev.key === "Enter" && tag !== "BUTTON") reveal();
+  });
+
+  render();
 })();
-
-renderChapters();
-rebuild();
 </script>

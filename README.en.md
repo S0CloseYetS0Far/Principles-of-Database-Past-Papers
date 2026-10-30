@@ -2,7 +2,7 @@
 
 # Principles of Database Bank
 
-Practice site for **CS370 Introduction to Database**: 265 questions from past midterms, finals and quizzes, sorted by chapter (1–9), with instant checking.
+Practice site for **CS370 Introduction to Database**: 265 questions from past midterms, finals and quizzes, sorted by chapter (1–9) and, inside each chapter, from the newest exam to the oldest.
 
 ## How to use
 
@@ -15,27 +15,26 @@ That's it. It is a single file with no installation, and it works offline.
 
 ### Practice
 
-- **Pick a chapter:** the tabs at the top (**Ch 1** to **Ch 9**, or **All**). Each tab shows how many questions you've done and how many you got right.
-- **Answer:** click a choice. The correct answer turns green; if you picked wrong, your choice is crossed out in red. A short explanation appears underneath.
-- **Move between questions:** **Next →** and **← Previous**, or the arrow keys.
-- **Keyboard shortcuts:** `a`–`d` (or `1`–`4`) to choose, `t` / `f` for True/False, `←` `→` to move.
-- **Answer sheet:** the grid on the right works like the exam's answer table. It fills in as you go (green = correct, red = missed). Click any box to jump to that question.
-- **Written questions** (SQL, mapping, normalization): write your answer on paper first, click **Show model answer**, then mark yourself with **I got it** or **I missed it**.
-- **Drawing questions** (ER/EER diagrams): these have no model answer. Draw it on paper, check it against the slides, then click **Mark as practised**. They don't count toward your score.
+1. **Pick a chapter** on the home page (or **All chapters mixed** for a mock exam). Each card shows how many questions it has and your progress.
+2. **One question per page.** Click an option to answer it, or press **Show solution**. The correct answer turns green; a wrong pick turns red.
+3. **The solution** shows the answer, a short explanation, and a box with:
+   - **Slides:** the chapter and slide number in your slides folder that the answer comes from;
+   - **Answer from:** how the answer was obtained (see the table below);
+   - **Exam source:** the exam(s) the question appeared in.
+4. **Move** with **← Prev** and **Next →** at the bottom, or click any square in the progress strip to jump.
+5. **⤮ Shuffle** (top right of each question) randomizes the order; **↺ Newest first** puts it back. You can also turn shuffling on by default on the home page.
+6. **Finish:** after the last question you get your score, then:
+   - **Review my mistakes:** goes through only the questions you got wrong, with the answers shown;
+   - **Retry them from scratch:** clears those answers so you can try again;
+   - **Go to the skipped** ones you haven't answered.
 
-### Filter and review
+- **Written questions** (SQL, mapping, normalization): work it out first, press **Show solution**, then mark yourself **Yes, I got it** or **No, review later**.
+- **Drawing questions** (ER/EER diagrams): there's no model answer. Draw it on paper and compare with the notation slide shown. They aren't scored.
+- **Question types:** on the home page you can turn multiple choice, true/false, written and drawing questions on or off.
+- **Keyboard:** `←` `→` move, `1`–`4` or `A`–`D` pick an option, `T` / `F` for true/false, `Enter` shows the solution.
+- **Theme:** the button at the top right switches between system, light and dark.
 
-- **Show** menu:
-  - **All questions**
-  - **Not answered yet**
-  - **Ones I missed** (good for revising before an exam)
-  - **Multiple choice & T/F only**
-  - **Written answers only**
-  - **Drawing questions only** (ER/EER diagrams and the three-schema architecture)
-- **Shuffle:** randomizes the question order.
-- **Clear answers:** resets your answers for the chapter you're on (it asks before clearing).
-
-Your progress is saved in the browser on your device. It won't carry over to another browser or device.
+Your progress is saved in the browser on your device. It won't carry over to another browser or device. **Reset my answers** on the home page clears it.
 
 ## Where the answers come from
 
@@ -54,7 +53,7 @@ The full source list is at the bottom of the page. **Worked out** answers are th
 
 ## Editing the questions
 
-Questions live in `src/bank.py` (newer ones in `src/bank_added.py`), the page template in `src/page.html`, and exam diagrams in `src/img/`. Rebuild with:
+Questions live in `src/bank.py` (newer ones in `src/bank_added.py`), the page template in `src/page.html`, exam diagrams in `src/img/`, and each question's slide reference in `src/slides.json` (made by `src/slidemap.py` from the slides folder, with hand-checked fixes). Rebuild with:
 
 ```bash
 pip install pymupdf

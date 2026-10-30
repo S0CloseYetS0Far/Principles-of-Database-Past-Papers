@@ -34,7 +34,7 @@ M(1, "The user who is responsible for defining the content, the structure, the c
   "Database designers define content, structure, constraints and transactions, and must communicate with end users.")
 M(1, "Which one of these is NOT considered an actor on the scene?",
   ["Database administrators", "Database designers", "Tool developer"], 2, ["M23_1"], "graded",
-  "Tool developers are 'workers behind the scene' (Chapter 1, slide 27).")
+  "Tool developers are 'workers behind the scene'.")
 M(1, "The person responsible for authorizing access to the database is part of:",
   ["Actors on the scene", "Operators and maintenance personnel", "Actors behind the scenes", "End users"], 0,
   ["Q24_1"], "marked", "The DBA is listed under 'Database Users – Actors on the scene'.")
@@ -45,7 +45,7 @@ M(1, "Which of the following is a database naïve user?",
   ["Retail store cashier", "Hotel receptionist", "Bank clerk", "All the above"], 3, ["M24_1"], "slides",
   "All three repeat the same canned transactions all shift long.")
 TF(1, "The System Analyst determines the requirements of end users and develops system specifications.", True,
-   ["Q25_1"], "slides", "Chapter 1, slide 25: 'System Analyst: determine the requirements of end users & develop system specifications.'")
+   ["Q25_1"], "slides", "The slides: 'System Analyst: determine the requirements of end users & develop system specifications.'")
 M(1, "The DBMS software together with the data itself. Sometimes, the applications are also included:",
   ["Database Application", "DBMS", "Database system (DBS)", "DBA"], 2, ["Q24_S"], "marked")
 M(1, "Database system consists of:",
@@ -65,9 +65,9 @@ M(1, "The Meta-data tells ____ to the DBMS:",
   ["F23_1"], "marked")
 M(1, "A database is:",
   ["A software package", "A collection of related data", "A programming language", "A system to query and update"], 1,
-  ["Q24_1"], "marked", "Chapter 1, slide 3: 'Database (DB) is a collection of related data.'")
+  ["Q24_1"], "marked", "The slides: 'Database (DB) is a collection of related data.'")
 TF(1, "Data and information are the same thing.", False, ["Q25_1"], "slides",
-   "Information is data processed so that it becomes meaningful (Chapter 1, slide 3).")
+   "Information is data processed so that it becomes meaningful.")
 TF(1, "Databases may be more expensive to maintain than files because of backup and recovery needs.", True, ["M24_2"], "key")
 M(1, "Which of the following is NOT a characteristic of the database approach?",
   ["Insulation between programs and data", "Support of multiple views of the data", "Self-describing nature of a database system", "Data dependence"], 3,
@@ -83,7 +83,7 @@ M(1, "Which of the following is an advantage of using the DBMS approach?",
   ["Increased data redundancy", "Improved data consistency", "Increased data storage cost", "Limited access to data"], 1, ["F25_2"], "slides")
 M(1, "Which of the following applications requires concurrency control?",
   ["Calculator application", "Personal notes application", "Multiplayer online game", "Alarm clock application"], 2, ["M24_1"], "slides",
-  "Concurrency control is needed when many users update shared data at the same time (Chapter 1, slide 19).")
+  "Concurrency control is needed when many users update shared data at the same time.")
 M(1, "Which scenario below does NOT need the use of a DBMS?",
   ["A cloud-based project management tool used by remote workers that requires real-time collaboration and data synchronization",
    "A personal budgeting application that tracks income and expenses for an individual user without the need for sharing financial data",
@@ -100,12 +100,12 @@ R(1, "List four advantages of using a DBMS.",
 
 # ---------------------------------------------------------------- Chapter 2
 M(2, "Hiding details of data storage that are not needed by most database users by using a data model is called:",
-  ["Data Model", "Data Abstraction", "Database"], 1, ["M23_1"], "graded", "Chapter 2, slide 3.")
+  ["Data Model", "Data Abstraction", "Database"], 1, ["M23_1"], "graded", "")
 M(2, "At the conceptual level of a data model:",
   ["The description is about how to store data", "The description is about how to process data", "The description is about how people perceive data", "None of the options"], 2,
   ["M24_2"], "key", "Conceptual (high-level) models give concepts close to how users perceive data.")
 TF(2, "The internal data model provides concepts that describe details of how data is stored in the computer.", True, ["Q25_2"], "slides",
-   "Physical (low-level, internal) data models, Chapter 2 slide 4.")
+   "Physical (low-level, internal) data models.")
 M(2, "The actual data stored in a database at a particular moment in time. This includes the collection of all the data.",
   ["Database Instance", "Database Schema", "Schema Construct"], 0, ["M23_1"], "graded")
 M(2, "A database state is:",
@@ -132,7 +132,7 @@ M(2, "The ability to modify a schema definition in one level without affecting a
   ["Mappings", "Data Independence", "Data Model"], 1, ["M23_1", "Q24_1"], "graded")
 M(2, "The ability to change the conceptual schema without having to change the application programs is called:",
   ["Data consistency independence", "Logical data independence", "Data redundancy independence", "Physical data independence"], 1,
-  ["M24_1"], "slides", "Chapter 2, slide 15.")
+  ["M24_1"], "slides", "")
 M(2, "With logical data independence, the conceptual schema can be changed without changing the ____ schema.",
   ["Internal", "External", "Both", "None"], 1, ["Q25_1"], "slides")
 M(2, "The DBMS language used by the database administrator to specify the schema of the database:",
@@ -148,7 +148,7 @@ M(2, "Used to specify database retrieval and updates:",
 TF(2, "When using a high-level language, the user specifies what data is required without specifying how to get those data.", True, ["Q24_S"], "marked")
 R(2, "What are the categories of data models?",
   "Conceptual (high-level, semantic) models, close to how users perceive data (e.g. ER).<br>Physical (low-level, internal) models, describing how data is stored.<br>Implementation (representational, record-based) models, in between the two (e.g. relational).",
-  ["Q26_2"], "slides", "Chapter 2, slide 4.")
+  ["Q26_2"], "slides", "")
 
 # ---------------------------------------------------------------- Chapter 3
 TF(3, "ER and EER models are used to describe the structure of the database at the conceptual level.", True, ["M23_1"], "graded")
@@ -161,13 +161,13 @@ M(3, "Select the attribute type which is made up of more than one single attribu
   ["Multi-value attribute", "Derived attribute", "Complex attribute", "Composite attribute"], 3, ["M25_3", "Q25_2"], "slides")
 M(3, "In the diagram, 'Parts' is drawn as a double oval with components Season, Episode and Title. What type of attribute is 'Parts'?",
   ["Multivalued", "Complex", "Composite", "All"], 1, ["Q24_1"], "slides",
-  "The quiz screenshot shows 'Composite' selected, but the Chapter 3 slides (slides 16–18) define a composite attribute that is also multivalued (double oval with parts) as a complex attribute.",
+  "The quiz screenshot shows 'Composite' selected, but the Chapter 3 slides define a composite attribute that is also multivalued (double oval with parts) as a complex attribute.",
   img="tvshow")
 M(3, "Select from the following the multi-valued attribute.",
   ["Date_of_birth", "Name", "Phone_number", "All of the mentioned"], 2, ["Q25_2"], "slides")
 M(3, "An attribute computed as TOTAL PRICE = UNIT PRICE × QUANTITY is:",
   ["A primary key", "All the above", "A weak attribute", "A derived attribute"], 3, ["Q24_1"], "marked",
-  "Chapter 3, slide 14: Total_cost is derived from quantity*unit_price.")
+  "The slides: Total_cost is derived from quantity*unit_price.")
 M(3, "Which of the following is true about derived attributes?",
   ["Have to be in the same entity", "Derived from the value of a related attribute", "Can be a primary key", "All of the above"], 1, ["M23S"], "key")
 M(3, "Which of the following is true about a primary key?",
@@ -182,7 +182,7 @@ M(3, "Select the true statement about a weak entity set in an ER diagram.",
   ["M24_2"], "key")
 M(3, "Which of the following is true about a weak entity in an ER model?",
   ["It can exist independently without a related strong entity", "It does not have its own primary key", "It has a strong relationship with itself", "It can never have a relationship with a strong entity"], 1,
-  ["M25_2"], "slides", "Chapter 3, slide 28.")
+  ["M25_2"], "slides", "")
 M(3, "Which is a set of entities of the same type that share the same properties/attributes?",
   ["Relation set", "Attribute set", "Entity set", "Entity model"], 2, ["Q25_2"], "slides")
 TF(3, "The set of entities of the same entity type share the same attributes and the same values for these attributes.", False, ["M23_1"], "graded",
@@ -257,7 +257,7 @@ TF(4, "A partial specialization means that all entity instances in the superclas
    "Partial means an instance may belong to no subclass. 'Just one' is the disjoint constraint.")
 M(4, "In the EER model, what is a disjoint constraint?",
   ["It specifies that an entity can be a member of at most one of the subclasses of the specialization", "It specifies that an entity can belong to multiple subclasses", "It specifies that attributes are shared between entities", "It specifies that a relationship occurs between unrelated entities"], 0,
-  ["F25_2"], "slides", "Chapter 4, slide 21.")
+  ["F25_2"], "slides", "")
 M(4, "There are persons other than employees, volunteers and donors who are of interest, so a person need not belong to any of these groups. At a given time a person may belong to two or more of these groups. What type of specialization is this?",
   ["Disjoint, total", "Disjoint, partial", "Overlapping, total", "Overlapping, partial"], 3, ["M23_1"], "graded",
   "May belong to several groups = overlapping (o). Need not belong to any = partial (single line).")
@@ -291,10 +291,10 @@ for s, a, e in [
 # ---------------------------------------------------------------- Chapter 5
 M(5, "The cardinality of a relation is:",
   ["The number of tuples", "The number of attributes", "The maximum size of each tuple", "The type of data stored in each attribute"], 0,
-  ["F24_1"], "slides", "Chapter 5, slide 5.")
+  ["F24_1"], "slides", "")
 M(5, "Degree of a relation is:",
   ["Number of attributes of its relation schema", "Number of tuples in its relation state", "Number of different domains of its relation schema"], 0,
-  ["Q21"], "graded", "The student picked 'number of tuples' and it was marked wrong. Chapter 5, slide 5: degree = number of attributes.")
+  ["Q21"], "graded", "The student picked 'number of tuples' and it was marked wrong. The slides: degree = number of attributes.")
 M(5, "What type of relational database constraint may be violated if the primary key attributes of each relation schema cannot have null values?",
   ["Domain", "Key", "Entity integrity", "Referential integrity"], 2, ["F24_1"], "slides")
 M(5, "What type of relational database constraint may be violated if we attempt to update a non-key attribute value?",
@@ -319,7 +319,7 @@ TF(5, "Person/SubjectArea diagram: Subject attribute is a primary key that canno
 # ---------------------------------------------------------------- Chapter 6
 M(6, "Which of the following is NOT a step in building a database for an application?",
   ["Understand the real-world domain", "Integration testing", "Create the schema using DDL", "Load data (DML)"], 1, ["M23S"], "key",
-  "Chapter 6, slide 2 lists the design steps.")
+  "The Chapter 6 slides list the design steps.")
 M(6, "When mapping an N:M relationship from an ER model to a relational model, what is typically created?",
   ["A new table to represent the relationship", "A single table with combined attributes of both entities", "A foreign key in one of the participating tables", "A hierarchical structure combining both entities"], 0, ["F25_2"], "slides")
 M(6, "When mapping a weak entity type to a relational schema, what is required?",
@@ -509,15 +509,15 @@ R(8, "Fetch the employees who are not working on any project.",
 
 # ---------------------------------------------------------------- Chapter 9
 M(9, "Redundant information in tuples may cause:",
-  ["Update anomalies", "Domain constraint", "Enhanced query speed", "Reduced storage requirements"], 0, ["F24_1"], "slides", "Chapter 9, slide 10.")
+  ["Update anomalies", "Domain constraint", "Enhanced query speed", "Reduced storage requirements"], 0, ["F24_1"], "slides", "")
 M(9, "The reason for nulls in a database is:",
   ["Attribute not applicable or invalid", "Attribute value unknown", "Value known to exist, but unavailable", "All the above answers are correct"], 3, ["F24_1", "F25_2"], "slides")
 M(9, "Informal measures of quality for relation schema design:",
-  ["Semantics of the relation attributes", "Redundant information in tuples", "Disallowing the generation of spurious tuples", "All the above"], 3, ["F24_1"], "slides", "Chapter 9, slide 5.")
+  ["Semantics of the relation attributes", "Redundant information in tuples", "Disallowing the generation of spurious tuples", "All the above"], 3, ["F24_1"], "slides", "")
 M(9, "A table that is in 2NF and includes no transitive dependencies is said to be in:",
   ["1NF", "2NF", "3NF", "BCNF"], 2, ["F24_1", "F25_2"], "slides")
 TF(9, "Normalization is the process of decomposing 'bad' relations by breaking up their attributes into smaller relations.", True, ["F25_2"], "slides")
-TF(9, "A prime attribute is an attribute that is a member of the primary key K.", True, ["F25_2"], "slides", "Chapter 9, slide 31 uses this exact definition.")
+TF(9, "A prime attribute is an attribute that is a member of the primary key K.", True, ["F25_2"], "slides", "The slides use this exact definition.")
 TF(9, "If a relation has a multivalued attribute then it will be in first normal form.", False, ["F25_3"], "slides", "1NF forbids multivalued and composite attributes.")
 TF(9, "If a relation has only one candidate key consisting of one attribute (i.e., no partial dependencies), it is automatically in Second Normal Form (2NF).", True, ["F25_3"], "slides")
 fl_ctx = "<pre>FLIGHT_RESERVATION (<u>Flight#, Date, Cust_name</u>, Plane_type, Seat#, Plane_capacity)\nFlight# → Plane_type\nPlane_type → Plane_capacity</pre>"
